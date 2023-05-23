@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/myStyle.css">
+    <title>Seat</title>
+</head>
+<style>
+    td:hover {
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: red;
+        color: #fff;
+        font-weight: bold
+    }
+</style>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="Logo" width="45px"
+                        style="margin: 0 15px; border-radius:10px;"></a>
+                <li class="nav-item dropdown">
+                    <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Movie
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="nav-link" href="/movie/now-showing">Now-Showing</a>
+                        <a class="nav-link" href="/movie/coming-soon">Coming-Soon</a>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/movie/theaters">Theaters</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/movie/snack">Snack</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/movie/event">Event</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/movie/gift-card">Gift-Card</a>
+                </li>
+                <div class="div-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img class="img-nav" src="/images/profile.jpeg">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="nav-link" href="/customer/profile"> Profile</a>
+                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </div>
+                </li>
+                </div>
+            </ul>
+            {{user.name}}
+        </div>
+    </nav>
+    <form action="">
+        <div class="screen"><h3 style="font-family: 'Courier New', Courier, monospace; text-align: center; ">Screen</h3></div>
+        <div>
+            <div class="row">
+                <div class="vSeat"></div>Selected
+                
+                <div class="vSeat1"></div>Not selected 
+            </div>
+        </div>
+        <input type="hidden" id="roomRows" value="{{room.rows}}">
+        <input type="hidden" id="roomColumns" value="{{room.columns}}">
+        <input type="hidden" id="movie" value="{{schedule.movie}}">
+        <input type="hidden" id="cinema" value="{{schedule.cinema}}">
+        <input type="hidden" id="room" value="{{schedule.room}}">
+        <input type="hidden" id="date" value="{{schedule.date}}">
+        <input type="hidden" id="startTime" value="{{schedule.startTime}}">
+        <input type="hidden" name="txtId" value="{{schedule._id}}">
+
+        <center>
+            <div id="board">
+            </div><br>
+            <button id="bookSeat"><a href="/customer/history">Booking</a></button>
+        </center>
+
+        <div class="footer-ticket">
+                <div class="info-ticket">
+                    <span>Movie: {{schedule.movie}}</span><br>
+                    <span>Cinema: {{schedule.cinema}}</span><br>
+                    <span>Room: {{schedule.room}}</span><br>
+                    <span>Date: {{schedule.date}}</span><br>
+                    <span>Time: {{schedule.startTime}}</span><br>
+                    Seat: <span name="seat" id="seat"></span><br>
+                    Total: <span name="price" id="price"></span><br>
+                </div>
+        </div>
+    </form>
+    <footer class="footer">
+    <div class="i-footer">
+            <div class="row">
+                <div class="col-2">
+                    <span style="font-weight: bold;">Terms and Conditions</span> <br>
+                    Conditions of Website <br>
+                    UseTerms of UsePayment <br>
+                    PolicyPrivacy <br>
+                    PolicyF.A.Q <br>
+                </div>
+                <div class="col-2">
+                    <span style="font-weight: bold;">Customer Service</span> <br>
+                    Hotline: 1900 6017
+                    Working hours: 8:00 - 22:00 (Monday to Sunday, including Public Holidays) 
+                    Email support: hoidap@cgv.vn
+                </div>
+                <div class="col-1">
+
+                </div>
+                <div class="col-2">
+                    <img src="/images/tải xuống (4).jpeg" alt="" width="200px" height="100px" style="border-radius: 20px;"><br> <br>
+                    <img src="/images/abcsd.png" alt="" width="200px" height="100px" style="border-radius: 20px;">
+                </div>
+                <div class="col-1">
+
+                </div>
+                <div class="col-4">
+                <span style="font-weight: bold;">COMPANY CJ HPH VIETNAM</span> <br>
+                    Business registration certificate: 0303675393, registered for the first time on 31/7/2008, registered for the fifth change on 14/10/2015, issued by HCMC Department of Planning and Investment.Address: Floor 2, Rivera Park Saigon - No. 7/28 Thanh Thai street, Ward 14, District 10, HCMC.Hotline: 1900 6017COPYRIGHT 2017 CJ CGV. All RIGHTS RESERVED .
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+    <script>
+
+        //ticket
+        var movie = document.getElementById("movie").value;
+        var cinema = document.getElementById("cinema").value;
+        var room = document.getElementById("room").value;
+        var date = document.getElementById("date").value;
+        var startTime = document.getElementById("startTime").value;
+
+        var r = Number(document.getElementById("roomRows").value);
+        var c = Number(document.getElementById("roomColumns").value);
+        var total = 0;
+        var price = 10;
+        var arrRow = [];
+        var arrColoumn = [];
+        var arrSeat = [];
+
+        let markup = '<table id="table3" border="1">';
+        var string = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        var rows = r;
+        let columns = c;
+
+        for (let i = 0; i < rows; i++) {
+            markup += createRow(columns, string[i]);
+
+        }
+        markup += '</table>';
+        document.getElementById('board').innerHTML = markup;
+
+        var table = document.getElementById("table3"), rIndex, cIndex;
+
+
+        for (var i = 0; i < table.rows.length; i++) {
+            for (var j = 0; j < table.rows[i].cells.length; j++) {
+
+                table.rows[i].cells[j].onclick = function () {
+                    rIndex = this.parentElement.rowIndex;
+                    cIndex = this.cellIndex;
+                    var a = table.rows[rIndex].cells[cIndex].innerHTML;
+                    console.log(table.rows[rIndex].cells[cIndex]);
+                    table.rows[rIndex].cells[cIndex].classList.toggle('selected');
+                    arrSeat.push(a)
+                    arrRow.push(rIndex);
+                    arrColoumn.push(cIndex);
+
+                    document.getElementById("seat").innerHTML = arrSeat;
+
+                    document.getElementById("price").innerHTML  = total + 10
+                    total = arrSeat.length * price
+                };
+            }
+        }
+
+        function createRow(columns, s) {
+            if (columns < 1) return '';
+            let markup = '<tr>';
+            var a = s;
+            for (let i = 1; i < (columns + 1); i++) {
+                var b = a + i;
+
+                markup += `<td style="width: 30px; height: 30px; text-align:center;"
+                        >`;
+                markup += b;
+                markup += '</td>';
+            }
+            markup += '</tr>';
+            return markup;
+        }
+
+        var btn = document.getElementById('bookSeat');
+        btn.addEventListener('click', function () {
+            //AJAX
+            var ajax = new XMLHttpRequest;
+            ajax.open("POST", "user-seat")
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            ajax.send("movie=" + movie + "&cinema=" + cinema + "&date=" + date 
+            + "&room=" + room + "&startTime=" + startTime + "&seat=" + arrSeat + "&price= " + total);
+        })
+
+    </script>
+
+</body>
+
+</html>

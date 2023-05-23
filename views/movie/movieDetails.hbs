@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/myStyle.css">
+    <title>User</title>
+    <style>
+        .listComment {
+            list-style-type: none;
+            width: 90%;
+            margin-bottom: 5px;
+            padding: 5px 0px 5px 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="hidden" name="" id="customer" value="{{user}}">
+    
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="Logo" width="45px"
+                            style="margin: 0 15px; border-radius:10px;"></a>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Movie
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link" href="/movie/now-showing">Now-Showing</a>
+                            <a class="nav-link" href="/movie/coming-soon">Coming-Soon</a>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/movie/theaters">Theaters</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/movie/snack">Snack</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/movie/event">Event</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/movie/gift-card">Gift-Card</a>
+                    </li>
+                    <div class="div-nav">
+                        <li class="nav-item dropdown">
+                            <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <img class="img-nav" src="/images/profile.jpeg">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="/customer/profile"> Profile</a>
+                                <a class="nav-link" href="/login">Login</a>
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+                {{user.name}}
+            </div>
+        </nav>
+        <div class="card-detail">
+            <div class="col-4">
+                <img class="thumb" src="../../{{movie.img.path}}" alt="Card image cap"><br>
+                <i class="fa fa-eye" style="font-size:18px"></i> {{movie.views}} views
+                <input type="hidden" id="movieId" value="{{movie._id}}">
+            </div>
+            <div class="content">
+                <span style="font-weight: bold;">Name:</span> {{movie.name}} <br>
+                <span style="font-weight: bold;">Director:</span>{{movie.director}} <br>
+                <span style="font-weight: bold;">Cast:</span> {{movie.cast}} <br>
+                <span style="font-weight: bold;">Category:</span>{{movie.category}} <br>
+                <span style="font-weight: bold;">Running Time:</span>{{movie.time}} <br>
+                <span style="font-weight: bold;">Language:</span>{{movie.language}} <br>
+                <span style="font-weight: bold;">Rule:</span>{{movie.rule}} <br>
+                <span style="font-weight: bold;">Date:</span>{{movie.date}} <br>
+
+                <div class="button">
+                    <button type="button" id="btn1" class="btn btn-default">
+                        <i id="like" class="fa fa-thumbs-up" style="font-size:24px; color:grey"></i>
+                        <span id="likeIdea">{{movie.likes.length}}</span>
+                    </button>
+                    <a href="booking_schedule?id={{movie._id}}" class="btn btn-primary">Booking</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            {{movie.des}}
+        </div>
+
+        <div class="cmt">
+            <form onsubmit="return postComment(this)">
+                <input class="post-cmt" type="text" name="comments" id="comment" placeholder="Comment .......">
+                <input class="post" type="submit" value="Post">
+            </form>
+
+            <ul id="comments">
+                {{#each movie.comments}}
+                <li class="listComment">
+                    <span>{{userName}}</span><br>
+                    <span><img src="../../{{Image.path}}" alt="" width="50px" style="border-radius: 10px;"></span>
+                    <p>{{comment}}</p>
+                </li>
+                {{/each}}
+            </ul>
+
+        </div>
+        <footer class="footer">
+            <div class="i-footer">
+                <div class="row">
+                    <div class="col-2">
+                        <span style="font-weight: bold;">Terms and Conditions</span> <br>
+                        Conditions of Website <br>
+                        UseTerms of UsePayment <br>
+                        PolicyPrivacy <br>
+                        PolicyF.A.Q <br>
+                    </div>
+                    <div class="col-2">
+                        <span style="font-weight: bold;">Customer Service</span> <br>
+                        Hotline: 1900 6017
+                        Working hours: 8:00 - 22:00 (Monday to Sunday, including Public Holidays)
+                        Email support: hoidap@cgv.vn
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-2">
+                        <img src="/images/tải xuống (4).jpeg" alt="" width="200px" height="100px"
+                            style="border-radius: 20px;"><br> <br>
+                        <img src="/images/abcsd.png" alt="" width="200px" height="100px" style="border-radius: 20px;">
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-4">
+                        <span style="font-weight: bold;">COMPANY CJ HPH VIETNAM</span> <br>
+                        Business registration certificate: 0303675393, registered for the first time on 31/7/2008,
+                        registered for the fifth change on 14/10/2015, issued by HCMC Department of Planning and
+                        Investment.Address: Floor 2, Rivera Park Saigon - No. 7/28 Thanh Thai street, Ward 14, District
+                        10, HCMC.Hotline: 1900 6017COPYRIGHT 2017 CJ CGV. All RIGHTS RESERVED .
+                    </div>
+                </div>
+            </div>
+    </div>
+    </footer>
+    </div>
+    <script>
+        const checkLogin = document.getElementById("customer").value;
+
+        // Like Movie
+        var btn1 = document.getElementById("btn1");
+        btn1.addEventListener("click", function () {
+            if(checkLogin == ""){
+                alert("Pls Login")
+            }else{
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "doLike", true);
+                ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                // update likes.
+                var likes = document.getElementById("likeIdea").innerHTML;
+                if (document.getElementById("like").style.color == "grey") {
+                    document.getElementById("like").style.color = "dodgerblue"
+                    likes = parseInt(likes);
+                    likes++;
+                    document.getElementById("likeIdea").innerHTML = likes;
+                }
+                else {
+                    document.getElementById("like").style.color = "grey"
+                    likes = parseInt(likes);
+                    likes--;
+                    document.getElementById("likeIdea").innerHTML = likes;
+                }
+                var movieId = document.querySelector("#movieId").value;
+                ajax.send("movieId=" + movieId);
+                }
+            
+        }, false);
+
+        // Comment Movie
+
+        function postComment(obj) {
+            if(checkLogin == ""){
+                alert("Pls Login")
+            }else{
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "postComment", true);
+                ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                var movieId = document.querySelector("#movieId").value;
+                var comment = document.querySelector("#comment").value;
+
+                comments = document.getElementById("comments")
+                ajax.send("movieId=" + movieId + "&comments=" + comment);
+
+            }
+            return false;
+        }
+    </script>
+</body>
+
+</html>
